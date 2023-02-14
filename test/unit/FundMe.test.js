@@ -4,11 +4,13 @@ const { assert, expect } = require("chai")
 const { developmentChains } = require("../../helper-hardhat-config.js")
 
 developmentChains.includes(network.name)
-  ? describe("FundMe", async function () {
+  ? describe("FundMe", function () {
       let fundMe
       let deployer
       let mockV3Aggregator
       const sendEth = ethers.utils.parseUnits("0.1")
+
+
       beforeEach(async function () {
         // const accounts = await ethers.getSigners() // Gives the list of all accounts present in hardhat.config.js
         // const accountZero = accounts[0]
@@ -22,14 +24,14 @@ developmentChains.includes(network.name)
         )
       })
 
-      describe("constructor", async function () {
+      describe("constructor", function () {
         it("sets the aggregator adddresses correctly", async function () {
           const response = await fundMe.getPriceFeed()
           assert.equal(response, mockV3Aggregator.address)
         })
       })
 
-      describe("fund", async function () {
+      describe("fund", function () {
         it("fails if you don't send enough eth", async function () {
           await expect(fundMe.fund()).to.be.revertedWith("DIDN'T SEND ENOUGH.")
         })
@@ -40,8 +42,9 @@ developmentChains.includes(network.name)
           await expect(response.toString(), sendEth.toString())
         })
       })
+      
 
-      describe("withdraw", async function () {
+      describe("withdraw", function () {
         beforeEach(async function () {
           await fundMe.fund({ value: sendEth })
         })
@@ -118,7 +121,7 @@ developmentChains.includes(network.name)
         })
       })
 
-      describe("Cheaper Withdraw.....", async function () {
+      describe("Cheaper Withdraw.....", function () {
         beforeEach(async function () {
           await fundMe.fund({ value: sendEth })
         })

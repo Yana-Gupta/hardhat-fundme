@@ -2,6 +2,7 @@ const { ethers, getNamedAccounts, network } = require("hardhat")
 const { assert, expect } = require("chai")
 const { developmentChains } = require("../../helper-hardhat-config.js")
 
+
 developmentChains.includes(network.name)
   ? describe.skip
   : describe("FundMe", async function () {
@@ -35,3 +36,6 @@ developmentChains.includes(network.name)
         assert.equal(endingFundMeBalance.toString(), "0")
       })
     })
+
+
+
